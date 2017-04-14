@@ -115,6 +115,7 @@ namespace Draughts
                 b[p.r + dir, p.c + 1] = b[p.r, p.c];
                 b[p.r, p.c] = BoardField.EMPTY;
                 Coord pos = new Coord(p.r + dir, p.c + 1);
+                b.MenToKings();
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
             if (p.c != 0 && this[p.r + dir, p.c - 1] == BoardField.EMPTY)
@@ -123,6 +124,7 @@ namespace Draughts
                 b[p.r + dir, p.c - 1] = b[p.r, p.c];
                 b[p.r, p.c] = BoardField.EMPTY;
                 Coord pos = new Coord(p.r + dir, p.c - 1);
+                b.MenToKings();
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
 
@@ -161,6 +163,7 @@ namespace Draughts
                 b[p.r, p.c] = BoardField.EMPTY;
                 b[p.r+dir, p.c+1] = BoardField.EMPTY;
                 Coord pos = new Coord(p.r + dir*2, p.c + 2);
+                b.MenToKings();
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
             if (p.c >1 && this[p.r + dir*2, p.c - 2] == BoardField.EMPTY && Owner(p.r + dir, p.c - 1) == opponent)
@@ -170,6 +173,7 @@ namespace Draughts
                 b[p.r, p.c] = BoardField.EMPTY;
                 b[p.r+dir, p.c-1] = BoardField.EMPTY;
                 Coord pos = new Coord(p.r + dir*2, p.c - 2);
+                b.MenToKings();
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
 
@@ -208,6 +212,19 @@ namespace Draughts
                     }
                 }
             return moves;
+        }
+        /// <summary>
+        /// Поиск дамок
+        /// </summary>
+        private void MenToKings()
+        {
+            for (int c = 0; c < 8; c++)
+            {
+                if (this[7, c] == BoardField.WHITE)
+                    this[7, c] = BoardField.WHITE_KING;
+                if (this[0, c] == BoardField.BLACK)
+                    this[0, c] = BoardField.BLACK_KING;
+            }
         }
 
 
