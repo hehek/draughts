@@ -96,62 +96,39 @@ namespace Draughts
         /// </summary>
         /// <param name="init_pos">Шашка</param>
         /// <returns>Список ходов</returns>
-        public  List<Move> GetMovesManWithoutCapture(int r, int c, Board b )//программные координаты
+        public  List<Move> GetMovesManWithoutCapture(Coord m )//программные координаты
         {
             var moves = new List<Move>();
-            
-            if (b.Owner(r, c) == Player.WHITE)
-          
-                #region new Boards 
-                {
-                    if (c<7)
-                    if (b.field[r + 1, c] == BoardField.EMPTY )
-                    {
-                        b.field[r, c] = BoardField.EMPTY;
-                        b.field[r + 1, c] = BoardField.WHITE;
-                        Coord t = new Coord(r, c);
-                        moves.Add(new Move() { new_board = b, new_pos = t });
-                    }
-                    if (c>0)
-                    if (b.field[r + 1, c - 1] == BoardField.EMPTY )
-                        {
-                            b.field[r, c]= BoardField.EMPTY;
-                            b.field[r + 1, c - 1] = BoardField.WHITE;
-                            Coord t = new Coord(r, c);
-                            moves.Add(new Move() { new_board = b  , new_pos = t });
-                        }
-                        else throw new ArgumentException();
-                 }
-                 #endregion
-            else
-            #region new Boards 
+
+            int dir;
+            if (this.Owner(m.r, m.c) == Player.WHITE)
+                dir = 1;
+            else 
+                dir = -1;
+
+            if (m.c != 7 && this[m.r + dir, m.c + 1] == BoardField.EMPTY)
             {
-                if (c < 7)
-                    if (b.field[r - 1, c] == BoardField.EMPTY)
-                    {
-                        b.field[r, c] = BoardField.EMPTY;
-                        b.field[r - 1, c] = BoardField.WHITE;
-                        Coord t = new Coord(r, c);
-                        moves.Add(new Move() { new_board = b, new_pos = t });
-                    }
-                if (c > 0)
-                    if (b.field[r - 1, c + 1] == BoardField.EMPTY && c < 7)
-                    {
-                        b.field[r, c] = BoardField.EMPTY;
-                        b.field[r - 1, c + 1] = BoardField.WHITE;
-                        Coord t = new Coord(r, c);
-                        moves.Add(new Move() { new_board = b, new_pos = t });
-                    }
-                    else throw new ArgumentException();
+                var b = new Board(this);
+                b[m.r + dir, m.c + 1] = b[m.r, m.c];
+                b[m.r, m.c] = BoardField.EMPTY;
+                Coord pos = new Coord(m.r + dir, m.c + 1);
+                moves.Add(new Move() { new_board = b, new_pos = pos });
             }
-            #endregion
+            if (m.c != 0 && this[m.r + dir, m.c - 1] == BoardField.EMPTY)
+            {
+                var b = new Board(this);
+                b[m.r + dir, m.c - 1] = b[m.r, m.c];
+                b[m.r, m.c] = BoardField.EMPTY;
+                Coord pos = new Coord(m.r + dir, m.c - 1);
+                moves.Add(new Move() { new_board = b, new_pos = pos });
+            }
 
             return moves;
-
-
-            //var moves = new List<Move>();
-            //moves.Add(new Move() { new_board=b, new_pos=... })
         }
 
+        private Board(Board b)
+        {
+            field = b.field.Clone() as BoardField[,];
+        }
     }
 }
