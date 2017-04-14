@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draughts", "Draughts\Draughts.csproj", "{69B524F9-B843-45F1-B4CC-0427D93D6A96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDrauhts", "UnitTestDrauhts\UnitTestDrauhts.csproj", "{928C0649-5A66-4A51-9C26-5B73BCF94109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDraughts", "UnitTestDrauhts\UnitTestDraughts.csproj", "{928C0649-5A66-4A51-9C26-5B73BCF94109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
