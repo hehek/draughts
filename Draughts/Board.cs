@@ -98,6 +98,9 @@ namespace Draughts
         /// <returns>Список ходов</returns>
         public  List<Move> GetMovesManWithoutCapture(Coord p)//программные координаты
         {
+            if (this[p.r, p.c] != BoardField.BLACK && this[p.r, p.c] != BoardField.WHITE)
+                throw new ArgumentException();
+
             var moves = new List<Move>();
 
             int dir;
@@ -133,6 +136,9 @@ namespace Draughts
         /// <returns>Список ходов</returns>
         public List<Move> GetMovesManWithCapture(Coord p)//программные координаты
         {
+            if (this[p.r, p.c] != BoardField.BLACK && this[p.r, p.c] != BoardField.WHITE)
+                throw new ArgumentException();
+
             var moves = new List<Move>();
 
             int dir;
