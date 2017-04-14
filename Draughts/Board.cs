@@ -126,6 +126,52 @@ namespace Draughts
             return moves;
         }
 
+        /// <summary>
+        /// Ходы шашкой со взятием
+        /// </summary>
+        /// <param name="p">Шашка</param>
+        /// <returns>Список ходов</returns>
+        public List<Move> GetMovesManWithCapture(Coord p)//программные координаты
+        {
+            var moves = new List<Move>();
+
+            int dir;
+            Player opponent;
+            if (Owner(p.r, p.c) == Player.WHITE)
+            {
+                dir = 1;
+                opponent = Player.BLACK;
+            }
+            else
+            {
+                dir = -1;
+                opponent = Player.WHITE;
+            }
+
+            if (p.c < 6  && this[p.r + dir*2, p.c + 2] == BoardField.EMPTY && Owner(p.r + dir, p.c + 1)==opponent)
+            {
+                var b = new Board(this);
+                b[p.r + dir*2, p.c + 2] = b[p.r, p.c];
+                b[p.r, p.c] = BoardField.EMPTY;
+                b[p.r+dir, p.c+1] = BoardField.EMPTY;
+                Coord pos = new Coord(p.r + dir*2, p.c + 2);
+                moves.Add(new Move() { new_board = b, new_pos = pos });
+            }
+            if (p.c >1 && this[p.r + dir*2, p.c - 2] == BoardField.EMPTY && Owner(p.r + dir, p.c - 1) == opponent)
+            {
+                var b = new Board(this);
+                b[p.r + dir*2, p.c - 2] = b[p.r, p.c];
+                b[p.r, p.c] = BoardField.EMPTY;
+                b[p.r+dir, p.c-1] = BoardField.EMPTY;
+                Coord pos = new Coord(p.r + dir*2, p.c - 2);
+                moves.Add(new Move() { new_board = b, new_pos = pos });
+            }
+
+            return moves;
+        }
+
+
+
         private Board(Board b)
         {
             field = b.field.Clone() as BoardField[,];
