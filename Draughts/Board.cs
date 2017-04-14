@@ -170,6 +170,39 @@ namespace Draughts
             return moves;
         }
 
+        /// <summary>
+        /// Ходы дамкой без взятия
+        /// </summary>
+        /// <param name="p">Шашка</param>
+        /// <returns>Список ходов</returns>
+        public List<Move> GetMovesKingWithoutCapture(Coord p)//программные координаты
+        {
+            var moves = new List<Move>();
+            var r0 = p.r;
+            var c0 = p.c;
+
+            if (this[r0, c0] != BoardField.BLACK_KING && this[r0, c0] != BoardField.WHITE_KING)
+                throw new ArgumentException();
+
+            for (var dr = -1; dr<= 1; dr+=1)
+                for (var dc= -1; dc <=1; dc+=1)
+                {
+                    int r = r0; int c = c0;
+                    while ((r + dr) >= 0 && (r + dr) <= 7
+                       && (c + dc) >= 0 && (c + dc) <= 7
+                       && this[r + dr, c + dc] == BoardField.EMPTY)
+                    {
+                        var b = new Board(this);
+                        b[r + dr, c + dc] = b[r0, c0];
+                        b[r0, c0] = BoardField.EMPTY;
+                        Coord pos = new Coord(r + dr, c + dc);
+                        moves.Add(new Move() { new_board = b, new_pos = pos });
+                        r += dr;
+                        c += dc;
+                    }
+                }
+            return moves;
+        }
 
 
         private Board(Board b)
