@@ -94,32 +94,32 @@ namespace Draughts
         /// <summary>
         /// Ходы шашкой без взятия
         /// </summary>
-        /// <param name="init_pos">Шашка</param>
+        /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        public  List<Move> GetMovesManWithoutCapture(Coord m )//программные координаты
+        public  List<Move> GetMovesManWithoutCapture(Coord p)//программные координаты
         {
             var moves = new List<Move>();
 
             int dir;
-            if (this.Owner(m.r, m.c) == Player.WHITE)
+            if (this.Owner(p.r, p.c) == Player.WHITE)
                 dir = 1;
             else 
                 dir = -1;
 
-            if (m.c != 7 && this[m.r + dir, m.c + 1] == BoardField.EMPTY)
+            if (p.c != 7 && this[p.r + dir, p.c + 1] == BoardField.EMPTY)
             {
                 var b = new Board(this);
-                b[m.r + dir, m.c + 1] = b[m.r, m.c];
-                b[m.r, m.c] = BoardField.EMPTY;
-                Coord pos = new Coord(m.r + dir, m.c + 1);
+                b[p.r + dir, p.c + 1] = b[p.r, p.c];
+                b[p.r, p.c] = BoardField.EMPTY;
+                Coord pos = new Coord(p.r + dir, p.c + 1);
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
-            if (m.c != 0 && this[m.r + dir, m.c - 1] == BoardField.EMPTY)
+            if (p.c != 0 && this[p.r + dir, p.c - 1] == BoardField.EMPTY)
             {
                 var b = new Board(this);
-                b[m.r + dir, m.c - 1] = b[m.r, m.c];
-                b[m.r, m.c] = BoardField.EMPTY;
-                Coord pos = new Coord(m.r + dir, m.c - 1);
+                b[p.r + dir, p.c - 1] = b[p.r, p.c];
+                b[p.r, p.c] = BoardField.EMPTY;
+                Coord pos = new Coord(p.r + dir, p.c - 1);
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
 
