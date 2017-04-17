@@ -24,7 +24,7 @@ namespace Draughts
 
         public override string ToString()
         {
-            return $"{c + 'a'}{r + '1'}";
+            return $"{(char)(c + 'a')}{(char)(r + '1')}";
         }
     }
 
