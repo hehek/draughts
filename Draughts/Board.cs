@@ -101,11 +101,7 @@ namespace Draughts
 
             set
             {
-                if ((r + c) % 2 != 0)
-                   field[r,c] = value;
-                else
-                   field[r, c / 2] = value;
-              
+                 field[r, c / 2] = value;
             }
         }
 
@@ -247,6 +243,7 @@ namespace Draughts
                 }
             return moves;
         }
+        
         /// <summary>
         /// Ходы дамкой со взятием
         /// </summary>
