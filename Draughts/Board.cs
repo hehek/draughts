@@ -129,7 +129,7 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        public  List<Move> GetMovesManWithoutCapture(Coord p)//программные координаты
+        List<Move> GetMovesManWithoutCapture(Coord p)//программные координаты
         {
             if (this[p.r, p.c] != BoardField.BLACK && this[p.r, p.c] != BoardField.WHITE)
                 throw new ArgumentException();
@@ -169,7 +169,7 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        public List<Move> GetMovesManWithCapture(Coord p)//программные координаты
+        List<Move> GetMovesManWithCapture(Coord p)//программные координаты
         {
             if (this[p.r, p.c] != BoardField.BLACK && this[p.r, p.c] != BoardField.WHITE)
                 throw new ArgumentException();
@@ -217,7 +217,7 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        public List<Move> GetMovesKingWithoutCapture(Coord p)//программные координаты
+        List<Move> GetMovesKingWithoutCapture(Coord p)//программные координаты
         {
             var moves = new List<Move>();
             var r0 = p.r;
@@ -251,7 +251,7 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        public List<Move> GetMovesKingWithCapture(Coord p)//программные координаты
+        List<Move> GetMovesKingWithCapture(Coord p)//программные координаты
         {
             var moves = new List<Move>();
             var r0 = p.r;
