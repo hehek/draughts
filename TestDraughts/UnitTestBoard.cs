@@ -60,5 +60,73 @@ namespace TestDraughts
             CollectionAssert.AreEquivalent(exp_coords, new_coords);
             Assert.AreEqual(BoardField.WHITE_KING, moves[0].new_board[7, 1]);
         }
+
+
+        [TestMethod]
+        public void TestGetMovesManWithCapture()
+        {
+            List<Move> moves;
+            List<Coord> new_coords, exp_coords;
+            Board board;
+            PrivateObject pboard;
+
+
+            board = Board.Init("d4", "", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("d4")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+
+            board = Board.Init("a1", "", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("a1")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+
+            board = Board.Init("a7", "", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("a7")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+
+            board = Board.Init("d4 c5", "", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("d4")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+
+            board = Board.Init("", "b2", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("b2")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+
+            board = Board.Init("d4", "c5", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("d4")) as List<Move>;
+            exp_coords = new List<Coord>() { new Coord("b6") };
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+            Assert.AreEqual(BoardField.WHITE, moves[0].new_board[5, 1]);
+            Assert.AreEqual(BoardField.EMPTY, moves[0].new_board[4, 2]);
+
+            board = Board.Init("e3", "f2", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("e3")) as List<Move>;
+            exp_coords = new List<Coord>() { new Coord("g1") };
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+            Assert.AreEqual(BoardField.WHITE, moves[0].new_board[0, 6]);
+            Assert.AreEqual(BoardField.EMPTY, moves[0].new_board[1, 5]);
+
+            board = Board.Init("d2 f2", "e3", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("e3")) as List<Move>;
+            exp_coords = new List<Coord>() { new Coord("g1"), new Coord("c1") };
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("d2", "e3", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithCapture", new Coord("e3")) as List<Move>;
+            Assert.AreEqual(BoardField.BLACK_KING, moves[0].new_board[0, 2]);
+            Assert.AreEqual(BoardField.EMPTY, moves[0].new_board[1, 3]);
+        }
+
     }
 }
