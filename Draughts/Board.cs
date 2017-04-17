@@ -101,7 +101,9 @@ namespace Draughts
 
             set
             {
-                 field[r, c / 2] = value;
+                if ((r + c) % 2 != 0)
+                    throw new ArgumentException();
+                field[r, c / 2] = value;
             }
         }
 
