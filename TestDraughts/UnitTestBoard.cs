@@ -304,7 +304,6 @@ namespace TestDraughts
             List<Coord> new_coords, exp_coords;
             Board board;
             string exp_moves;
-            bool cap;
 
             board = Board.Init("c3 g3 g7", "b4 b6 f4", "", "");
             moves = board.GetAllMoves(Player.WHITE);
@@ -326,6 +325,10 @@ namespace TestDraughts
             exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
             new_coords = (from m in moves select m.new_pos).Distinct().ToList();
             CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("g7", "f8", "h8", "");
+            moves = board.GetAllMoves(Player.WHITE);
+            Assert.AreEqual(0, moves.Count);
         }
     }
 }
