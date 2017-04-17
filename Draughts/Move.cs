@@ -16,6 +16,12 @@ namespace Draughts
             this.c = c;
         }
 
+        public Coord(string pos)
+        {
+            c = pos[0] - 'a';
+            r = pos[1] - '1';
+        }
+
         public override string ToString()
         {
             throw new NotImplementedException();
