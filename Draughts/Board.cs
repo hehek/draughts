@@ -83,6 +83,7 @@ namespace Draughts
 
             return board;
         }
+
         /// <summary>
         /// Получение шашки по координатам
         /// </summary>
@@ -104,6 +105,24 @@ namespace Draughts
                 if ((r + c) % 2 != 0)
                     throw new ArgumentException();
                 field[r, c / 2] = value;
+            }
+        }
+
+        /// <summary>
+        /// Получение шашки по координатам
+        /// </summary>
+        /// <param name="p">Координаты</param>
+        /// <returns>Тип шашки</returns>
+        public BoardField this[Coord p]
+        {
+            get
+            {
+                return this[p.r, p.c];
+            }
+
+            set
+            {
+                this[p.r, p.c] = value;
             }
         }
 
