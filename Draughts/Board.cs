@@ -502,12 +502,15 @@ namespace Draughts
 
         readonly Regex re_move = new Regex("([a-h][1-8]){2}");
 
-        public Board PerformMove(string descr)
+        public Board PerformMove(string descr, Player p)
         {
             if (!re_move.IsMatch(descr))
                 throw new IllegalMoveException();
             var from = new Coord(descr.Substring(0, 2));
             var to = new Coord(descr.Substring(2, 2));
+
+            if (this[from] == BoardField.EMPTY || Owner(from.r, from.c) != p)
+                throw new IllegalMoveException();
 
             bool capture;
             foreach (var m in GetMoves(from, out capture))
