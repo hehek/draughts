@@ -475,24 +475,27 @@ namespace Draughts
                 output.Append(i + 1);
                 for (int j = 0; j < 8; j++)
                 {
-                    switch(this[i, j])
-                    {
-                        case BoardField.BLACK:
-                            output.Append("b");
-                            break;
-                        case BoardField.BLACK_KING:
-                            output.Append("B");
-                            break;
-                        case BoardField.WHITE:
-                            output.Append("w");
-                            break;
-                        case BoardField.WHITE_KING:
-                            output.Append("W");
-                            break;
-                        default:
-                            output.Append(".");
-                            break;
-                    }
+                    if ((i + j) % 2 == 0)
+                        switch (this[i, j])
+                        {
+                            case BoardField.BLACK:
+                                output.Append("b");
+                                break;
+                            case BoardField.BLACK_KING:
+                                output.Append("B");
+                                break;
+                            case BoardField.WHITE:
+                                output.Append("w");
+                                break;
+                            case BoardField.WHITE_KING:
+                                output.Append("W");
+                                break;
+                            default:
+                                output.Append(".");
+                                break;
+                        }
+                    else
+                        output.Append(" ");
                 }
                 output.AppendLine();
             }
