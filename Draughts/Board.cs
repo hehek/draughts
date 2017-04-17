@@ -177,43 +177,38 @@ namespace Draughts
                 throw new ArgumentException();
 
             var moves = new List<Move>();
-
-            int dir;
             Player opponent;
             if (Owner(p.r, p.c) == Player.WHITE)
-            {
-                dir = 1;
                 opponent = Player.BLACK;
-            }
             else
-            {
-                dir = -1;
                 opponent = Player.WHITE;
-            }
 
-            if (p.c < 6 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
-                && this[p.r + dir*2, p.c + 2] == BoardField.EMPTY && this[p.r + dir, p.c + 1] != BoardField.EMPTY
-                && Owner(p.r + dir, p.c + 1)==opponent)
+            foreach (var dir in new[] { -1, 1 })
             {
-                var b = new Board(this);
-                b[p.r + dir*2, p.c + 2] = b[p.r, p.c];
-                b[p.r, p.c] = BoardField.EMPTY;
-                b[p.r+dir, p.c+1] = BoardField.EMPTY;
-                Coord pos = new Coord(p.r + dir*2, p.c + 2);
-                b.MenToKings();
-                moves.Add(new Move() { new_board = b, new_pos = pos });
-            }
-            if (p.c > 1 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
-                && this[p.r + dir*2, p.c - 2] == BoardField.EMPTY && this[p.r + dir, p.c - 1] != BoardField.EMPTY
-                && Owner(p.r + dir, p.c - 1) == opponent)
-            {
-                var b = new Board(this);
-                b[p.r + dir*2, p.c - 2] = b[p.r, p.c];
-                b[p.r, p.c] = BoardField.EMPTY;
-                b[p.r+dir, p.c-1] = BoardField.EMPTY;
-                Coord pos = new Coord(p.r + dir*2, p.c - 2);
-                b.MenToKings();
-                moves.Add(new Move() { new_board = b, new_pos = pos });
+                if (p.c < 6 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
+                    && this[p.r + dir * 2, p.c + 2] == BoardField.EMPTY && this[p.r + dir, p.c + 1] != BoardField.EMPTY
+                    && Owner(p.r + dir, p.c + 1) == opponent)
+                {
+                    var b = new Board(this);
+                    b[p.r + dir * 2, p.c + 2] = b[p.r, p.c];
+                    b[p.r, p.c] = BoardField.EMPTY;
+                    b[p.r + dir, p.c + 1] = BoardField.EMPTY;
+                    Coord pos = new Coord(p.r + dir * 2, p.c + 2);
+                    b.MenToKings();
+                    moves.Add(new Move() { new_board = b, new_pos = pos });
+                }
+                if (p.c > 1 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
+                    && this[p.r + dir * 2, p.c - 2] == BoardField.EMPTY && this[p.r + dir, p.c - 1] != BoardField.EMPTY
+                    && Owner(p.r + dir, p.c - 1) == opponent)
+                {
+                    var b = new Board(this);
+                    b[p.r + dir * 2, p.c - 2] = b[p.r, p.c];
+                    b[p.r, p.c] = BoardField.EMPTY;
+                    b[p.r + dir, p.c - 1] = BoardField.EMPTY;
+                    Coord pos = new Coord(p.r + dir * 2, p.c - 2);
+                    b.MenToKings();
+                    moves.Add(new Move() { new_board = b, new_pos = pos });
+                }
             }
 
             return moves;
