@@ -191,7 +191,9 @@ namespace Draughts
                 opponent = Player.WHITE;
             }
 
-            if (p.c < 6  && this[p.r + dir*2, p.c + 2] == BoardField.EMPTY && Owner(p.r + dir, p.c + 1)==opponent)
+            if (p.c < 6 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
+                && this[p.r + dir*2, p.c + 2] == BoardField.EMPTY && this[p.r + dir, p.c + 1] != BoardField.EMPTY
+                && Owner(p.r + dir, p.c + 1)==opponent)
             {
                 var b = new Board(this);
                 b[p.r + dir*2, p.c + 2] = b[p.r, p.c];
@@ -201,7 +203,9 @@ namespace Draughts
                 b.MenToKings();
                 moves.Add(new Move() { new_board = b, new_pos = pos });
             }
-            if (p.c >1 && this[p.r + dir*2, p.c - 2] == BoardField.EMPTY && Owner(p.r + dir, p.c - 1) == opponent)
+            if (p.c > 1 && p.r + dir * 2 >= 0 && p.r + dir * 2 <= 7
+                && this[p.r + dir*2, p.c - 2] == BoardField.EMPTY && this[p.r + dir, p.c - 1] != BoardField.EMPTY
+                && Owner(p.r + dir, p.c - 1) == opponent)
             {
                 var b = new Board(this);
                 b[p.r + dir*2, p.c - 2] = b[p.r, p.c];
