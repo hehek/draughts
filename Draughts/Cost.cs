@@ -4,12 +4,10 @@
 
 namespace Draughts
 {
-    class Cost1 : ICost
+    public class Cost1 : ICost
     {
         public double Cost(Board b, Player p)
         {
-          
-
             int num, king, end, s, k; BoardField t;
             num = 0; king = 0; end = 0;
             if (p == Player.BLACK)
@@ -41,7 +39,7 @@ namespace Draughts
       
     }
 
-    class Cost2 : ICost
+    public class Cost2 : ICost
     {
 
         public double Cost(Board b, Player p)
