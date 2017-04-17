@@ -16,8 +16,8 @@ namespace DraughtsCLI
             const uint N = 5;
 
             // Создаём искусственные интеллекты для белых и чёрных
-            var ai_white = new AI(new Cost1(), Player.WHITE);
-            var ai_black = new AI(new Cost1(), Player.BLACK);
+            var ai_white = new AI(new Cost1(), N, Player.WHITE);
+            var ai_black = new AI(new Cost1(), N, Player.BLACK);
 
             // На доске начальная позиция
             Board board = Board.Init();
@@ -31,7 +31,7 @@ namespace DraughtsCLI
                 Console.WriteLine(board);
                 Console.WriteLine("Ход белых");
 
-                m = ai_white.BestMove(board, N);
+                m = ai_white.BestMove(board);
                 if (m == null)
                 {
                     Console.WriteLine("Белые проиграли!");
@@ -44,7 +44,7 @@ namespace DraughtsCLI
                 Console.WriteLine(board);
                 Console.WriteLine("Ход чёрных");
 
-                m = ai_black.BestMove(board, N);
+                m = ai_black.BestMove(board);
                 if (m == null)
                 {
                     Console.WriteLine("Чёрные проиграли!");

@@ -16,13 +16,17 @@ namespace Draughts
     {
         ICost _cost;
         Player _player;
-        public AI(ICost cost, Player player)
+        uint _depth;
+
+        public AI(ICost cost, uint depth, Player player)
         {
             _cost = cost;
             _player = player;
+            _depth = depth;
         }
+                
 
-        public Move? BestMove(Board board, uint depth)
+        public Move? BestMove(Board board)
         {
             Move? best_move = null;
             double max_v = double.NegativeInfinity;
@@ -31,7 +35,7 @@ namespace Draughts
             foreach (var move in moves)
             {
                 var s = move.new_board;
-                double v = MinValue(s, double.PositiveInfinity, max_v, depth);
+                double v = MinValue(s, double.PositiveInfinity, max_v, _depth);
                 if (v > max_v)
                 {
                     max_v = v;
