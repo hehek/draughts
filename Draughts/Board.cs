@@ -305,6 +305,7 @@ namespace Draughts
                 }
             return moves;
         }
+
         /// <summary>
         /// Поиск дамок
         /// </summary>
@@ -319,8 +320,10 @@ namespace Draughts
             }
         }
 
-
-
+        /// <summary>
+        /// Копирующий конструктор
+        /// </summary>
+        /// <param name="b">Исходная доска</param>
         private Board(Board b)
         {
             field = b.field.Clone() as BoardField[,];
