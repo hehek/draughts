@@ -500,7 +500,7 @@ namespace Draughts
             return output.ToString();
         }
 
-        readonly Regex re_move = new Regex("([a-h][1-8]){2}")
+        readonly Regex re_move = new Regex("([a-h][1-8]){2}");
 
         public Board PerformMove(string descr)
         {
