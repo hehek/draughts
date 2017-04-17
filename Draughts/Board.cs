@@ -496,7 +496,7 @@ namespace Draughts
                 }
                 output.AppendLine();
             }
-            output.AppendLine("abcdefgh");
+            output.AppendLine(" abcdefgh");
             return output.ToString();
         }
 
