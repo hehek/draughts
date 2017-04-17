@@ -50,8 +50,15 @@ namespace TestDraughts
             exp_coords = new List<Coord>() { new Coord("b2") };
             new_coords = (from m in moves select m.new_pos).ToList();
             CollectionAssert.AreEquivalent(exp_coords, new_coords);
-
             Assert.AreEqual(BoardField.WHITE, moves[0].new_board[1, 1]);
+
+            board = Board.Init("a7", "", "", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesManWithoutCapture", new Coord("a7")) as List<Move>;
+            exp_coords = new List<Coord>() { new Coord("b8") };
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+            Assert.AreEqual(BoardField.WHITE_KING, moves[0].new_board[7, 1]);
         }
     }
 }
