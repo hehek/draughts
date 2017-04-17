@@ -100,7 +100,7 @@ namespace Draughts
         {
             if (this[p.r, p.c] != BoardField.BLACK && this[p.r, p.c] != BoardField.WHITE)
                 throw new ArgumentException();
-
+            
             var moves = new List<Move>();
 
             int dir;
