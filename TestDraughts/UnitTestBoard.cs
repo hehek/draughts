@@ -167,5 +167,39 @@ namespace TestDraughts
             moves = pboard.Invoke("GetMovesKingWithoutCapture", new Coord("a1")) as List<Move>;
             Assert.AreEqual(0, moves.Count);
         }
+
+        [TestMethod]
+        public void TestGetMovesKingWithCapture()
+        {
+            List<Move> moves;
+            List<Coord> new_coords, exp_coords;
+            Board board;
+            PrivateObject pboard;
+            string exp_moves;
+
+            board = Board.Init("", "f6", "c3", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            exp_moves = "g7 h8";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("", "f6 d2", "c3", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            exp_moves = "g7 h8 e1";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("", "h8 d2", "c3", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            exp_moves = "e1";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+        }
     }
 }
