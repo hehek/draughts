@@ -300,9 +300,8 @@ namespace Draughts
                     r += dr;
                     c += dc;
 
-                    if (!((r + dr) >= 0 && (r + dr) <= 7
-                       && (c + dc) >= 0 && (c + dc) <= 7)
-                       || Owner(r,c)!=opponent )
+                    if (!(r >= 0 && r <= 7 && c >= 0 && c <= 7) ||
+                        Owner(r, c) != opponent )
                         continue;
 
                     int ro = r;
