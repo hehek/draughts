@@ -48,6 +48,41 @@ namespace Draughts
             return b;
         }
 
+
+        /// <summary>
+        /// Заполнить указанные клетки
+        /// </summary>
+        /// <param name="positions">Строка с координатами, разделёнными пробелом</param>
+        /// <param name="bf">Тип поля</param>
+        void Fill(string positions, BoardField bf)
+        {
+            if (positions == null || positions == "")
+                return;
+            var coords = from c in positions.Split(new[] { ' ' }) select new { C = c[0] - 'a', R = int.Parse(c[1].ToString()) - 1 };
+            foreach (var pos in coords)
+                this[pos.R, pos.C] = bf;
+        }
+
+
+        /// <summary>
+        /// Создать начальную позицию
+        /// </summary>
+        /// <param name="white_men">Координаты белых шашек через пробел</param>
+        /// <param name="black_men">Координаты чёрных шашек через пробел</param>
+        /// <param name="white_kings">Координаты белых дамок через пробел</param>
+        /// <param name="black_kings">Координаты чёрных дамок через пробел</param>
+        /// <returns>Доска с шашками на указанных позициях</returns>
+        public static Board Init(string white_men, string black_men, string white_kings, string black_kings)
+        {
+            var board = new Board();
+
+            board.Fill(white_men, BoardField.WHITE);
+            board.Fill(black_men, BoardField.BLACK);
+            board.Fill(white_kings, BoardField.WHITE_KING);
+            board.Fill(black_kings, BoardField.BLACK_KING);
+
+            return board;
+        }
         /// <summary>
         /// Получение шашки по координатам
         /// </summary>
