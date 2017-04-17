@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Draughts;
+using System.Diagnostics;
 
 namespace TestDraughts
 {
@@ -128,5 +129,43 @@ namespace TestDraughts
             Assert.AreEqual(BoardField.EMPTY, moves[0].new_board[1, 3]);
         }
 
+        [TestMethod]
+        public void TestGetMovesKingWithoutCapture()
+        {
+            List<Move> moves;
+            List<Coord> new_coords, exp_coords;
+            Board board;
+            PrivateObject pboard;
+            string exp_moves;
+
+            board = Board.Init("", "", "g7", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithoutCapture", new Coord("g7")) as List<Move>;
+            exp_moves = "h8 f6 e5 d4 c3 b2 a1 h6 f8";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("e5", "", "h8", "");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithoutCapture", new Coord("h8")) as List<Move>;
+            exp_moves = "f6 g7";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("b6", "e5", "", "d4");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithoutCapture", new Coord("d4")) as List<Move>;
+            exp_moves = "a1 b2 c3 c5 e3 f2 g1";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("b2", "", "", "a1");
+            pboard = new PrivateObject(board);
+            moves = pboard.Invoke("GetMovesKingWithoutCapture", new Coord("a1")) as List<Move>;
+            Assert.AreEqual(0, moves.Count);
+        }
     }
 }
