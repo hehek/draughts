@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draughts", "Draughts\Draugh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDraughts", "TestDraughts\TestDraughts.csproj", "{E9853D78-6FB8-4E85-A704-9A1E70626877}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DraughtsCLI", "DraughtsCLI\DraughtsCLI.csproj", "{2E088625-332E-477E-84AC-FD799434C32F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E9853D78-6FB8-4E85-A704-9A1E70626877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9853D78-6FB8-4E85-A704-9A1E70626877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9853D78-6FB8-4E85-A704-9A1E70626877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E088625-332E-477E-84AC-FD799434C32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E088625-332E-477E-84AC-FD799434C32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E088625-332E-477E-84AC-FD799434C32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E088625-332E-477E-84AC-FD799434C32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
