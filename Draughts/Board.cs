@@ -347,5 +347,36 @@ namespace Draughts
         {
             field = b.field.Clone() as BoardField[,];
         }
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+            for (int i = 7; i >= 0; i--)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    switch(this[i, j])
+                    {
+                        case BoardField.BLACK:
+                            output.Append("b");
+                            break;
+                        case BoardField.BLACK_KING:
+                            output.Append("B");
+                            break;
+                        case BoardField.WHITE:
+                            output.Append("w");
+                            break;
+                        case BoardField.WHITE_KING:
+                            output.Append("W");
+                            break;
+                        default:
+                            output.Append(".");
+                            break;
+                    }
+                }
+                output.AppendLine();
+            }
+            return output.ToString();
+        }
     }
 }
