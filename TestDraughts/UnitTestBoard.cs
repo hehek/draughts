@@ -179,7 +179,7 @@ namespace TestDraughts
 
             board = Board.Init("", "f6", "c3", "");
             pboard = new PrivateObject(board);
-            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            moves = (pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<List<Move>>).SelectMany(x => x).ToList();
             exp_moves = "g7 h8";
             exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
             new_coords = (from m in moves select m.new_pos).ToList();
@@ -187,7 +187,7 @@ namespace TestDraughts
 
             board = Board.Init("", "f6 d2", "c3", "");
             pboard = new PrivateObject(board);
-            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            moves = (pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<List<Move>>).SelectMany(x => x).ToList();
             exp_moves = "g7 h8 e1";
             exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
             new_coords = (from m in moves select m.new_pos).ToList();
@@ -195,7 +195,7 @@ namespace TestDraughts
 
             board = Board.Init("", "h8 d2", "c3", "");
             pboard = new PrivateObject(board);
-            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            moves = (pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<List<Move>>).SelectMany(x => x).ToList();
             exp_moves = "e1";
             exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
             new_coords = (from m in moves select m.new_pos).ToList();
@@ -203,12 +203,12 @@ namespace TestDraughts
 
             board = Board.Init("", "", "c3", "");
             pboard = new PrivateObject(board);
-            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<Move>;
+            moves = (pboard.Invoke("GetMovesKingWithCapture", new Coord("c3")) as List<List<Move>>).SelectMany(x => x).ToList();
             Assert.AreEqual(0, moves.Count);
 
             board = Board.Init("", "b2", "c1", "d2");
             pboard = new PrivateObject(board);
-            moves = pboard.Invoke("GetMovesKingWithCapture", new Coord("c1")) as List<Move>;
+            moves = (pboard.Invoke("GetMovesKingWithCapture", new Coord("c1")) as List<List<Move>>).SelectMany(x => x).ToList();
             exp_moves = "a3 e3 f4 g5 h6";
             exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
             new_coords = (from m in moves select m.new_pos).ToList();

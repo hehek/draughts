@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -270,9 +271,10 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Шашка</param>
         /// <returns>Список ходов</returns>
-        List<Move> GetMovesKingWithCapture(Coord p)//программные координаты
+        List<List<Move>> GetMovesKingWithCapture(Coord p)
         {
-            var moves = new List<Move>();
+            var ret = new List<List<Move>>();
+            
             var r0 = p.r;
             var c0 = p.c;
 
@@ -288,6 +290,7 @@ namespace Draughts
             for (var dr = -1; dr <= 1; dr += 2)
                 for (var dc = -1; dc <= 1; dc += 2)
                 {
+                    var moves = new List<Move>();
                     int r = r0; int c = c0;
                     while ((r + dr) >= 0 && (r + dr) <= 7
                         && (c + dc) >= 0 && (c + dc) <= 7
@@ -320,8 +323,9 @@ namespace Draughts
                         r += dr;
                         c += dc;
                     }
+                    ret.Add(moves);
                 }
-            return moves;
+            return ret;
         }
 
         /// <summary>
