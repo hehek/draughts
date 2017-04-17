@@ -15,21 +15,23 @@ namespace Draughts
     public class AI
     {
         ICost _cost;
-        public AI(ICost cost)
+        Player _player;
+        public AI(ICost cost, Player player)
         {
             _cost = cost;
+            _player = player;
         }
 
-        public Move? BestMove(Player player, Board board, uint depth)
+        public Move? BestMove(Board board, uint depth)
         {
             Move? best_move = null;
             double max_v = double.NegativeInfinity;
 
-            List<Move> moves = board.GetAllMoves(player);
+            List<Move> moves = board.GetAllMoves(_player);
             foreach (var move in moves)
             {
                 var s = move.new_board;
-                double v = MinValue(player, s, double.PositiveInfinity, max_v, depth);
+                double v = MinValue(s, double.PositiveInfinity, max_v, depth);
                 if (v > max_v)
                 {
                     max_v = v;
@@ -39,19 +41,19 @@ namespace Draughts
             return best_move;
         }
 
-        double MaxValue(Player player, Board board, double alpha, double beta, uint depth)
+        double MaxValue(Board board, double alpha, double beta, uint depth)
         {
             depth--;
-            List<Move> moves = board.GetAllMoves(player);
+            List<Move> moves = board.GetAllMoves(_player);
 
             if (moves.Count == 0 || depth == 0)
-                return _cost.Cost(board, player);
+                return _cost.Cost(board, _player);
             double v = double.NegativeInfinity;
 
             foreach (var move in moves)
             {
                 var s = move.new_board;
-                v = Math.Max(v, MinValue(player, s, alpha, beta, depth));
+                v = Math.Max(v, MinValue(s, alpha, beta, depth));
                 if (v >= beta)
                     return v;
                 alpha = Math.Max(alpha, v);
@@ -59,19 +61,19 @@ namespace Draughts
             return v;
         }
 
-        double MinValue(Player player, Board board, double alpha, double beta, uint depth)
+        double MinValue(Board board, double alpha, double beta, uint depth)
         {
             depth--;
-            List<Move> moves = board.GetAllMoves(player);
+            List<Move> moves = board.GetAllMoves(_player);
 
             if (moves.Count == 0 || depth == 0)
-                return _cost.Cost(board, player);
+                return _cost.Cost(board, _player);
             double v = double.PositiveInfinity;
 
             foreach (var move in moves)
             {
                 var s = move.new_board;
-                v = Math.Min(v, MaxValue(player, s, alpha, beta, depth));
+                v = Math.Min(v, MaxValue(s, alpha, beta, depth));
                 if (v <= alpha)
                     return v;
                 beta = Math.Min(beta, v);
