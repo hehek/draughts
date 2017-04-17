@@ -9,7 +9,7 @@ namespace Draughts
 
     interface ICost
     {
-        double Cost1(Board b, Player p);
+        double Cost(Board b, Player p);
     }
 
     class AI
