@@ -64,7 +64,7 @@ namespace Draughts
             for (int r = 0; r < 8; r++)
                 for (int c = 0; c < 4; c++)
                 {
-                    if (b.Owner(r, c) == p)
+                    if (b[r, c] != BoardField.EMPTY && b.Owner(r, c) == p)
                     {
                         num++;
                         end = end + s + k * r;
