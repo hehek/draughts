@@ -347,8 +347,9 @@ namespace Draughts
         /// </summary>
         /// <param name="p">Координаты шашки</param>
         /// <returns>Список ходов</returns>
-        public List<Move> GetMoves(Coord p)
+        public List<Move> GetMoves(Coord p, out bool captured)
         {
+            captured = true;
             if (this[p] == BoardField.EMPTY)
                 throw new ArgumentException("На этом поле нет шашки");
 
@@ -380,7 +381,10 @@ namespace Draughts
                 moves.Remove(init);
 
                 if (moves.Count == 0)
+                {
                     moves.AddRange(GetMovesManWithoutCapture(p));
+                    captured = false;
+                }
             } else
             {
                 var check = new Queue<Move>();
@@ -413,7 +417,10 @@ namespace Draughts
                 moves.Remove(init);
 
                 if (moves.Count == 0)
+                {
                     moves.AddRange(GetMovesKingWithoutCapture(p));
+                    captured = false;
+                }
             }
 
             moves = moves.Distinct().ToList();
