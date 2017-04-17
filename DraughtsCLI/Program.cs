@@ -27,7 +27,7 @@ namespace DraughtsCLI
 
             while (true)
             {
-                // Белые выполняют ход
+                // Ход искусственного интеллекта за белых
                 Console.WriteLine(board);
                 Console.WriteLine("Ход белых");
 
@@ -39,7 +39,8 @@ namespace DraughtsCLI
                 }
                 board = m?.new_board;   // Заменяем доску на новую
 
-                // Теперь очередь чёрных
+
+                // Ход ИИ за чёрных
                 Console.WriteLine(board);
                 Console.WriteLine("Ход чёрных");
 
@@ -50,6 +51,20 @@ namespace DraughtsCLI
                     return;
                 }
                 board = m?.new_board;   // Заменяем доску на новую
+
+
+                // Ход человека (если он играет за чёрных)
+                //while (true)
+                //{
+                //    try
+                //    {
+                //        Console.Write("Ваш ход: ");
+                //        var move = Console.ReadLine(); // Ход вводить в шахматной нотации: "a1b2" — это ход с a1 на b2
+                //        board = board.PerformMove(move, Player.BLACK);
+                //    }
+                //    catch (IllegalMoveException) { } // Если ход неверный, повторяем
+                //    break;
+                //}
             }
         }
     }
