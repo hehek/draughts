@@ -296,5 +296,36 @@ namespace TestDraughts
             CollectionAssert.AreEquivalent(exp_coords, new_coords);
             Assert.IsTrue(cap);
         }
+
+        [TestMethod]
+        public void TestGetAllMoves()
+        {
+            List<Move> moves;
+            List<Coord> new_coords, exp_coords;
+            Board board;
+            string exp_moves;
+            bool cap;
+
+            board = Board.Init("c3 g3 g7", "b4 b6 f4", "", "");
+            moves = board.GetAllMoves(Player.WHITE);
+            exp_moves = "c7 e5";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).Distinct().ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("c3 g3 g7", "b6", "", "");
+            moves = board.GetAllMoves(Player.WHITE);
+            exp_moves = "b4 d4 f4 h4 f8 h8";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).Distinct().ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("c5 c7 f6", "h4", "", "d4");
+            moves = board.GetAllMoves(Player.BLACK);
+            exp_moves = "g7 h8 g5";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).Distinct().ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+        }
     }
 }

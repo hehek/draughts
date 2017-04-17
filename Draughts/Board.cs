@@ -428,6 +428,36 @@ namespace Draughts
         }
 
         /// <summary>
+        /// Список возможных ходов для игрока
+        /// </summary>
+        /// <param name="p">Игрок</param>
+        /// <returns>Список ходов</returns>
+        public List<Move> GetAllMoves(Player p)
+        {
+            var moves_with_capture = new List<Move>();
+            var moves_without_capture = new List<Move>();
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (this[i, j] != BoardField.EMPTY && Owner(i, j) == p)
+                    {
+                        bool capture;
+                        var m = GetMoves(new Coord(i, j), out capture);
+                        if (capture)
+                            moves_with_capture.AddRange(m);
+                        else
+                            moves_without_capture.AddRange(m);
+                    }
+                }
+            }
+
+            if (moves_with_capture.Count > 0)
+                return moves_with_capture;
+            return moves_without_capture;
+        }
+
+        /// <summary>
         /// Копирующий конструктор
         /// </summary>
         /// <param name="b">Исходная доска</param>
