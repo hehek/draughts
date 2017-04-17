@@ -24,7 +24,7 @@ namespace Draughts
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"{c + 'a'}{r + '1'}";
         }
     }
 
