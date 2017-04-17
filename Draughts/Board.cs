@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Draughts
@@ -497,6 +498,25 @@ namespace Draughts
             }
             output.AppendLine("abcdefgh");
             return output.ToString();
+        }
+
+        readonly Regex re_move = new Regex("([a-h][1-8]){2}")
+
+        public Board PerformMove(string descr)
+        {
+            if (!re_move.IsMatch(descr))
+                throw new IllegalMoveException();
+            var from = new Coord(descr.Substring(0, 2));
+            var to = new Coord(descr.Substring(2, 2));
+
+            bool capture;
+            foreach (var m in GetMoves(from, out capture))
+            {
+                if (m.new_pos.c == to.c && m.new_pos.r == to.r)
+                    return m.new_board;
+            }
+
+            throw new IllegalMoveException();
         }
     }
 }

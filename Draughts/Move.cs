@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Draughts
 {
+    public class IllegalMoveException : Exception { }
+
     public struct Coord
     {
         public int r, c;
