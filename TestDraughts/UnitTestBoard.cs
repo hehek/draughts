@@ -215,6 +215,70 @@ namespace TestDraughts
             CollectionAssert.AreEquivalent(exp_coords, new_coords);
         }
 
+        [TestMethod]
+        public void TestGetMoves()
+        {
+            List<Move> moves;
+            List<Coord> new_coords, exp_coords;
+            Board board;
+            string exp_moves;
+
+            board = Board.Init("d4", "c5 e5 e7", "", "");
+            moves = board.GetMoves(new Coord("d4"));
+            exp_moves = "b6 d8";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("d4", "c5 e5 e7", "d8", "");
+            moves = board.GetMoves(new Coord("d4"));
+            exp_moves = "b6 f6";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("b2", "c3 c5 e5", "", "");
+            moves = board.GetMoves(new Coord("b2"));
+            exp_moves = "b6 f6";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("b2", "", "", "");
+            moves = board.GetMoves(new Coord("b2"));
+            exp_moves = "a3 c3";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("", "", "c1", "d2");
+            moves = board.GetMoves(new Coord("c1"));
+            exp_moves = "e3 f4 g5 h6";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("", "b2", "c1", "d2");
+            moves = board.GetMoves(new Coord("c1"));
+            exp_moves = "a3 e3 f4 g5 h6";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("b2 d4 f4 c7", "", "d2", "c1");
+            moves = board.GetMoves(new Coord("c1"));
+            exp_moves = "g5 h6 d8 a3";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
+            board = Board.Init("e5", "f6", "h8", "");
+            moves = board.GetMoves(new Coord("h8"));
+            exp_moves = "g7";
+            exp_coords = (from c in exp_moves.Split(' ') select new Coord(c)).ToList();
+            new_coords = (from m in moves select m.new_pos).Distinct().ToList();
+            CollectionAssert.AreEquivalent(exp_coords, new_coords);
+
         }
     }
 }

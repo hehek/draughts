@@ -343,6 +343,84 @@ namespace Draughts
         }
 
         /// <summary>
+        /// Список возможных ходов дя указанной шашки
+        /// </summary>
+        /// <param name="p">Координаты шашки</param>
+        /// <returns>Список ходов</returns>
+        public List<Move> GetMoves(Coord p)
+        {
+            if (this[p] == BoardField.EMPTY)
+                throw new ArgumentException("На этом поле нет шашки");
+
+            var moves = new List<Move>();
+
+            if (this[p] == BoardField.BLACK || this[p] == BoardField.WHITE)
+            {
+                var check = new Queue<Move>();
+                var init = new Move() { new_board = this, new_pos = p };
+                check.Enqueue(init);
+
+                while (check.Count > 0)
+                {
+                    var current = check.Dequeue();
+
+                    var possible_moves = new List<Move>();
+                    if (current.new_board[current.new_pos] != BoardField.WHITE_KING &&
+                        current.new_board[current.new_pos] != BoardField.BLACK_KING)
+                    {
+                        possible_moves = current.new_board.GetMovesManWithCapture(current.new_pos);
+                    }
+
+                    if (possible_moves.Count == 0)
+                        moves.Add(current);
+                    else
+                        foreach (var m in possible_moves)
+                            check.Enqueue(m);
+                }
+                moves.Remove(init);
+
+                if (moves.Count == 0)
+                    moves.AddRange(GetMovesManWithoutCapture(p));
+            } else
+            {
+                var check = new Queue<Move>();
+                var init = new Move() { new_board = this, new_pos = p };
+                check.Enqueue(init);
+
+                while (check.Count > 0)
+                {
+                    var current = check.Dequeue();
+                    var possible_moves_all = current.new_board.GetMovesKingWithCapture(current.new_pos);
+
+                    foreach (var possible_moves in possible_moves_all)
+                    {
+                        var possible_moves_with_capture = new List<Move>();
+
+
+                        foreach (var pm in possible_moves)
+                        {
+                            if (pm.new_board.GetMovesKingWithCapture(pm.new_pos).Count != 0)
+                                possible_moves_with_capture.Add(pm);
+                        }
+
+                        if (possible_moves_with_capture.Count == 0)
+                            moves.AddRange(possible_moves);
+                        else
+                            foreach (var m in possible_moves_with_capture)
+                                check.Enqueue(m);
+                    }
+                }
+                moves.Remove(init);
+
+                if (moves.Count == 0)
+                    moves.AddRange(GetMovesKingWithoutCapture(p));
+            }
+
+            moves = moves.Distinct().ToList();
+            return moves;
+        }
+
+        /// <summary>
         /// Копирующий конструктор
         /// </summary>
         /// <param name="b">Исходная доска</param>
