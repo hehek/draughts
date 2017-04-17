@@ -226,8 +226,8 @@ namespace Draughts
             if (this[r0, c0] != BoardField.BLACK_KING && this[r0, c0] != BoardField.WHITE_KING)
                 throw new ArgumentException();
 
-            for (var dr = -1; dr<= 1; dr+=1)
-                for (var dc= -1; dc <=1; dc+=1)
+            for (var dr = -1; dr <= 1; dr += 2)
+                for (var dc= -1; dc <=1; dc += 2)
                 {
                     int r = r0; int c = c0;
                     while ((r + dr) >= 0 && (r + dr) <= 7
